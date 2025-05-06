@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0070c9">
+  <title>Giovanni Pio Rizzi - Full Stack Developer</title>
+  <style>
+    :root {
+      --primary: #0070c9;       /* Blu Apple-style */
+      --secondary: #005ea2;     /* Blu scuro sobrio */
+      --dark: #1c1c1e;          /* Quasi nero, stile Apple */
+      --light: #f2f2f7;         /* Grigio molto chiaro */
+      --text: #1c1c1e;          /* Testo scuro per contrasto */
+      --background: #ffffff;    /* Bianco pulito */
+      --animation-duration: 0.8s;
+      --stagger: 0.2s;
+    }
+    
+    /* Reset base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+      transition: background-color 0.5s ease;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .img{
+        max-height: 20px;
+        width: auto;
+    }
+
+
+    .left-header {
+        display: flex;
+        align-items: center;
+        gap: 5px; /* spazio tra il testo e l'immagine */
+    }
+
+    li{
+        margin-left: 30px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Transizioni comuni per elementi animabili */
+    .hero-content, .btn, .section-title, .about, .profile-details, .education-section, .education-box, 
+    .skills-section, .skill-category, .timeline, .timeline-item, .projects-section, 
+    .project-card, .contact-section, .contact-info, .contact-item, .contact-form, 
+    .progress-fill {
+      transition: opacity var(--animation-duration) ease, transform var(--animation-duration) ease;
+    }
+    
+    /* Navbar e Header */
+    header {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--dark) 0%, #0e0e10 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(28,28,30,0.85);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      animation: fadeDown var(--animation-duration) ease forwards;
+      transition: background-color 0.4s ease;
+    }
+    
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--light);
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+    }
+    
+    /* Hamburger menu per mobile */
+    #menu-toggle {
+      display: none;
+    }
+    .menu-icon {
+      display: none;
+      font-size: 2rem;
+      color: var(--light);
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .nav-links a {
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+      color: var(--light);
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    /* HERO */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      color: var(--light);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+    }
+    
+    .hero h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      color: var(--light);
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      border: 2px solid var(--primary);
+      color: var(--light);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,112,201,0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--light);
+      color: var(--light);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--light);
+      color: var(--dark);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(242,242,247,0.2);
+    }
+    
+    /* Sfere animate di sfondo */
+    .bg-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .bg-animation div {
+      position: absolute;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      animation: float 25s linear infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-300px) scale(1.1); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    
+    /* Animazioni globali per entrata e uscita */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeDown {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    
+    /* Sezioni */
+    .section {
+      padding: 100px 0;
+      position: relative;
+      background-color: var(--dark);
+      overflow: hidden;
+      transition: background-color 0.5s ease;
+    }
+    .section:nth-child(even) {
+      background-color: var(--background);
+      color: var(--text);
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+    
+    /* Sezione Profilo (About) */
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .about-image {
+      flex: 1 1 300px;
+      max-width: 300px;
+      text-align: center;
+    }
+    .about-image img {
+      width: 100%;
+      border-radius: 15px;
+      border: 4px solid var(--primary);
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+    .about-image img:hover {
+      transform: scale(1.05);
+    }
+    .about-text {
+      flex: 2 1 400px;
+      max-width: 600px;
+    }
+    .about-text h3 {
+      margin-bottom: 20px;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    .about-text p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    .profile-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .profile-details .detail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,112,201,0.1);
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+    
+    /* ISTRUZIONE */
+    .education-section {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .education-box {
+      background: rgba(0,112,201,0.05);
+      border: 1px solid rgba(0,112,201,0.2);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .education-box:hover {
+      transform: translateY(-4px);
+    }
+    .education-title {
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    
+    /* COMPETENZE */
+    .skills-section {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .skill-category {
+      background: rgba(0,112,201,0.05);
+      border: 1px solid rgba(0,112,201,0.2);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .skill-category:hover {
+      transform: translateY(-4px);
+    }
+    .skill-category h4 {
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    .skill-category-lingue {
+      grid-column: 1 / -1;
+    }
+    .skill-item {
+      margin-bottom: 10px;
+    }
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(0,112,201,0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+      transition: width 1s ease-in-out;
+    }
+    
+    /* ESPERIENZE (Timeline) */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(30px);
+      padding-bottom: 40px;
+    }
+    /* LINEA DELLA TIMELINE */
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 4px;
+      background-color: var(--primary);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 20px 20px;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      border-radius: 10px;
+      background: rgba(0,112,201,0.03);
+    }
+    .timeline-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 16px rgba(0,112,201,0.3);
+    }
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: left;
+    }
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+    .timeline-item:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: var(--primary);
+      border: 3px solid var(--dark);
+      top: 50%;
+      right: 0px;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(0,112,201,0.6);
+      transform: translate(50%, -50%);
+    }
+    .timeline-item:nth-child(even)::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background-color: var(--primary);
+      border: 3px solid var(--dark);
+      top: 50%;
+      left: 0px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px rgba(0,112,201,0.6);
+    }
+    .timeline-date {
+      display: inline-block;
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+    .timeline-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 10px;
+      background: rgba(0,112,201,0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    
+    /* PROGETTI */
+    .projects-section {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .project-card {
+      background: rgba(0,112,201,0.05);
+      border: 1px solid rgba(0,112,201,0.2);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s ease, opacity 0.5s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .project-card:hover {
+      transform: scale(1.02);
+    }
+    .project-title {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    .project-tags {
+      margin-bottom: 10px;
+    }
+    .project-tag {
+      display: inline-block;
+      background: rgba(0,112,201,0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-right: 5px;
+    }
+    .project-desc {
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .project-links .project-link {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    
+    /* CONTATTI */
+    .contact-section {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    .contact-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .contact-item {
+      background: rgba(0,112,201,0.1);
+      border: 1px solid rgba(0,112,201,0.2);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .contact-item:hover {
+      transform: scale(1.02);
+    }
+    .contact-item h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    .contact-form {
+      flex: 1;
+      background: rgba(0,112,201,0.05);
+      border: 1px solid rgba(0,112,201,0.2);
+      border-radius: 10px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .contact-form:hover {
+      transform: translateY(-4px);
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 4px;
+      border: none;
+      font-size: 1rem;
+    }
+    .btn-submit {
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-submit:hover {
+      background-color: var(--secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,112,201,0.3);
+    }
+    
+    /* FOOTER */
+    footer {
+      background-color: var(--dark);
+      color: var(--light);
+      padding: 20px 0;
+      text-align: center;
+    }
+    footer .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    footer .social-links a {
+      color: var(--primary);
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+    footer .social-links a:hover {
+      color: var(--secondary);
+    }
+    
+    /* Animazione del menu a tendina (mobile) */
+    @media (max-width: 768px) {
+      /* Navbar Mobile */
+      .menu-icon {
+        display: block;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(28,28,30,0.95);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+      #menu-toggle:checked + .menu-icon + .nav-links {
+        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        animation: dropDown 0.5s ease-out;
+      }
+      @keyframes dropDown {
+        0% { opacity: 0; transform: translateY(-20px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      .nav-links a {
+        padding: 10px 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      /* Ridimensionamento degli elementi principali per mobile */
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .about {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-image,
+      .about-text {
+        max-width: 100%;
+      }
+      .profile-details {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      /* Timeline: layout a colonna */
+      .timeline {
+        padding-left: 0;
+      }
+      .timeline::after {
+        left: 20px;
+        transform: none;
+      }
+      .timeline-item {
+        width: 100%;
+        padding: 20px 40px;
+        padding-left: 60px;
+        left: 0 !important;
+        text-align: left;
+        margin-bottom: 20px;
+      }
+      .timeline-item:nth-child(odd)::after,
+      .timeline-item:nth-child(even)::after {
+        left: 21px;
+        transform: translate(-50%, -50%);
+      }
+      
+      /* Contatti: layout a colonna */
+      .contact-container {
+        flex-direction: column;
+      }
+      .contact-info, .contact-form {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER / NAVBAR -->
+  <header>
+    <nav>
+      <a href="#" class="logo">GPR</a>
+      <input type="checkbox" id="menu-toggle">
+      <label for="menu-toggle" class="menu-icon">&#9776;</label>
+      <div class="nav-links">
+        <a href="#about">Profilo</a>
+        <a href="#education">Istruzione</a>
+        <a href="#skills">Competenze</a>
+        <a href="#experience">Esperienze</a>
+        <a href="#projects">Progetti</a>
+        <a href="#contact">Contatti</a>
+      </div>
+    </nav>
+  
+    <!-- HERO -->
+    <div class="hero">
+      <div class="bg-animation">
+        <div style="width: 120px; height: 120px; top: 80%; left: 10%;"></div>
+        <div style="width: 100px; height: 100px; top: 90%; left: 80%;"></div>
+        <div style="width: 150px; height: 150px; top: 50%; left: 40%;"></div>
+        <div style="width: 80px; height: 80px; top: 30%; left: 70%;"></div>
+        <div style="width: 140px; height: 140px; top: 10%; left: 10%;"></div>
+      </div>
+      <div class="hero-content">
+        <h1>Giovanni Pio Rizzi</h1>
+        <h2>Full Stack Developer</h2>
+        <p>
+          Giovane sviluppatore con una passione per l’innovazione, soluzioni hardware/software e prototipazione avanzata.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Contattami</a>
+          <a href="https://github.com/MasterPinguin" class="btn btn-outline" target="_blank">Portfolio</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- PROFILO (About) -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Profilo</h2>
+      </div>
+      <div class="about">
+        <div class="about-image">
+          <img src="https://content.imageresizer.com/images/memes/Pingu-stare-meme-2.jpg" alt="Foto di Giovanni Pio Rizzi">
+        </div>
+        <div class="about-text">
+          <h3>Chi Sono</h3>
+          <p>
+            Sono un giovane sviluppatore software con una forte passione per la tecnologia e l'innovazione.  
+            Sin da piccolo ho coltivato interesse per lo sviluppo, acquisendo competenze che mi permettono di gestire progetti in maniera indipendente e con grande attenzione ai dettagli.  
+            Affronto nuove sfide e cerco soluzioni creative, mantenendo elevati standard qualitativi.
+          </p>
+          <div class="profile-details">
+            <div class="detail">
+              <strong>Residenza:</strong>
+              <span>Manfredonia, Italia</span>
+            </div>
+            <div class="detail">
+              <strong>Età:</strong>
+              <span>19</span>
+            </div>
+            <div class="detail">
+              <strong>Genere:</strong>
+              <span>Maschio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ISTRUZIONE -->
+  <section id="education" class="section">
+    <div class="container education-section">
+      <div class="section-title">
+        <h2>Istruzione</h2>
+      </div>
+      <div class="education-box">
+        <h3 class="education-title">Diploma ITIS "Luigi di Maggio" (2024)</h3>
+        <p>
+          Percorso orientato allo sviluppo software, elettronica, reti e prototipazione.
+        </p>
+      </div>
+      <div class="education-box">
+        <h3 class="education-title">Portfolio</h3>
+        <p>
+          <a href="https://github.com/MasterPinguin" target="_blank" style="color: var(--primary)">https://github.com/MasterPinguin</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- COMPETENZE -->
+  <section id="skills" class="section">
+    <div class="container skills-section">
+      <div class="section-title">
+        <h2>Competenze</h2>
+      </div>
+      <div class="skills-grid">
+        <!-- Linguaggi di Programmazione -->
+        <div class="skill-category">
+            <h4>Linguaggi di Programmazione</h4>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>C</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/1/19/C_Logo.png" alt="C logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>C++</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/911px-ISO_C%2B%2B_Logo.svg.png" alt="C++ logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Python</span>
+                <img class="img" src="https://images.icon-icons.com/2699/PNG/512/python_logo_icon_168886.png" alt="Python logo">
+                </div>
+                <span class="percent">95%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="95%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Java</span>
+                <img class="img" style="max-height: 22px;" src="https://cdn.iconscout.com/icon/free/png-256/free-java-logo-icon-download-in-svg-png-gif-file-formats--technology-social-media-company-vol-1-pack-logos-icons-3029997.png?f=webp&w=256" alt="Java logo">
+                </div>
+                <span class="percent">70%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="70%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>SQL</span>
+                <img class="img" src="https://www.fast2.tech/images/connectors/sql-logo.webp" alt="SQL logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>PHP</span>
+                <img class="img" style="max-height: 17px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/2560px-PHP-logo.svg.png" alt="PHP logo">
+                </div>
+                <span class="percent">85%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="85%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>HTML</span>
+                <img class="img" style="max-height: 24px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/512px-HTML5_logo_and_wordmark.svg.png" alt="HTML logo">
+                </div>
+                <span class="percent">90%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="90%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>CSS</span>
+                <img class="img" style="margin-left: 5px; max-height: 24px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/1200px-CSS3_logo_and_wordmark.svg.png" alt="CSS logo">
+                </div>
+                <span class="percent">80%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="80%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>JavaScript</span>
+                <img class="img" style=" max-height: 25px;" src="https://logos-world.net/wp-content/uploads/2023/02/JavaScript-Symbol.png" alt="JavaScript logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Dart</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Dart_logo.png" alt="Dart logo">
+                </div>
+                <span class="percent">85%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="85%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>C#</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Logo_C_sharp.svg/1200px-Logo_C_sharp.svg.png" alt="C# logo">
+                </div>
+                <span class="percent">50%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="50%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Swift</span>
+                <img class="img" src="https://cdn.freebiesupply.com/logos/large/2x/swift-15-logo-svg-vector.svg" alt="Swift logo">
+                </div>
+                <span class="percent">50%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="50%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Assembly</span>
+                <img class="img" src="https://i.ibb.co/Z1TgCb3q/1658763190886.png" alt="Assembly logo">
+                </div>
+                <span class="percent">45%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="45%"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Framework e Tecnologie -->
+        <div class="skill-category">
+            <h4>Framework &amp; Tecnologie</h4>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>Flutter</span>
+                    <img class="img" src="https://cdn.worldvectorlogo.com/logos/flutter-logo.svg" alt="Flutter logo">
+                    </div>
+                    <span class="percent">85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="85%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>React Native</span>
+                    <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="React Native logo">
+                    </div>
+                    <span class="percent">65%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="65%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>Flask</span>
+                    <img class="img" style="max-height: 24px;" src="https://static-00.iconduck.com/assets.00/flask-icon-1594x2048-84mjydzf.png" alt="Flask logo">
+                    </div>
+                    <span class="percent">70%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="70%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>Django</span>
+                    <img class="img" style="max-height: 22px;" src="https://1000logos.net/wp-content/uploads/2020/08/Django-Logo.png" alt="Django logo">
+                    </div>
+                    <span class="percent">45%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="45%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hardware & Prototipazione -->
+        <div class="skill-category">
+            <h4>Hardware &amp; Prototipazione</h4>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Arduino</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Arduino_Logo.svg/720px-Arduino_Logo.svg.png" alt="Arduino logo">
+                </div>
+                <span class="percent">90%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="90%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Raspberry Pi</span>
+                <img class="img" src="https://cdn.worldvectorlogo.com/logos/raspberry-pi.svg" alt="Raspberry Pi logo">
+                </div>
+                <span class="percent">65%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="85%"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Networking -->
+        <div class="skill-category">
+            <h4>Networking</h4>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Cisco Packet Tracer</span>
+                <img class="img" style="max-height: 22px;" src="https://hurbad.com/wp-content/uploads/2021/12/Cisco-Packet-Tracer.png" alt="Cisco Packet Tracer logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Database -->
+        <div class="skill-category">
+            <h4>Database</h4>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>MySQL</span>
+                <img class="img" style="max-height: 22px;" src="https://upload.wikimedia.org/wikipedia/labs/8/8e/Mysql_logo.png" alt="MySQL logo">
+                </div>
+                <span class="percent">80%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="80%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>PostgreSQL</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/1985px-Postgresql_elephant.svg.png" alt="PostgreSQL logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- Software & Strumenti -->
+        <div class="skill-category">
+            <h4>Software &amp; Strumenti</h4>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>Blender (3D)</span>
+                    <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Blender_logo_no_text.svg/1251px-Blender_logo_no_text.svg.png" alt="Blender logo">
+                    </div>
+                    <span class="percent">85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="85%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-header">
+                    <div class="left-header">
+                    <span>GitHub (Repository)</span>
+                    <img class="img" style="max-height: 22px;"  src="https://img.icons8.com/ios_filled/512/github.png" alt="Blender logo">
+                    </div>
+                    <span class="percent">85%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" data-progress="85%"></div>
+                </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Unity</span>
+                <img class="img" src="https://w7.pngwing.com/pngs/426/535/png-transparent-unity-new-logo-tech-companies-thumbnail.png" alt="Unity logo">
+                </div>
+                <span class="percent">65%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="65%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>VS Code</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/512px-Visual_Studio_Code_1.35_icon.svg.png?20210804221519" alt="VS Code logo">
+                </div>
+                <span class="percent">90%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="90%"></div>
+            </div>
+            </div>          
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Xcode</span>
+                <img class="img" style="max-height: 23px;" src="https://w7.pngwing.com/pngs/505/718/png-transparent-xcode-macos-bigsur-icon-thumbnail.png" alt="Xcode logo">
+                </div>
+                <span class="percent">70%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="70%"></div>
+            </div>
+            </div>
+            <div class="skill-item">
+            <div class="skill-header">
+                <div class="left-header">
+                <span>Android Studio</span>
+                <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Android_Studio_Logo_2024.svg/768px-Android_Studio_Logo_2024.svg.png" alt="Android Studio logo">
+                </div>
+                <span class="percent">75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" data-progress="75%"></div>
+            </div>
+            </div>
+        </div>  
+    
+        <!-- Lingue -->
+        <div class="skill-category skill-category-lingue">
+          <h4>Lingue</h4>
+          <div class="skill-item">
+            <div class="skill-header"><span>Italiano (Madrelingua) 🇮🇹</span><span>100%</span></div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-progress="100%"></div>
+            </div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Inglese (B2) 🇬🇧</span><span>65%</span></div>
+            <div class="progress-bar">
+              <div class="progress-fill" data-progress="65%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ESPERIENZE (Timeline) -->
+  <section id="experience" class="section">
+    <div class="container">
+      <div class="section-title">
+        <h2>Esperienze Lavorative</h2>
+      </div>
+      <div class="timeline">
+        <!-- Item 1 -->
+        <div class="timeline-item">
+            <div class="timeline-content">
+                <div class="timeline-date">2023-2024</div>
+                <h3 class="timeline-title">Stazione Meteorologica (Meteogargano)</h3>
+                <p class="timeline-desc">
+                <strong>Ruolo:</strong> Sviluppatore Back-End<br><br>
+                <strong>Descrizione:</strong> Creazione di una stazione meteorologica avanzata con integrazione di accesso FTP e funzionalità di time-lapse.<br><br>
+                <strong>Contributi:</strong>
+                <ul>
+                    <li>Sviluppo back-end in Python per la raccolta, l'ordinamento e l'elaborazione dei dati meteorologici</li>
+                    <li>Automazione del sistema per scattare foto orarie e generare video time-lapse giornalieri</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-date">2022-2023</div>
+            <h3 class="timeline-title">Dispositivo Controllo Accessi RFID (Valori, San Giovanni Rotondo)</h3>
+            <p class="timeline-desc">
+              <strong>Ruolo:</strong> Sviluppatore<br><br>
+              <strong>Descrizione:</strong> Realizzazione di un dispositivo RFID per il controllo degli accessi in una palestra, utilizzando inizialmente Arduino e successivamente Raspberry Pi 4 per l'integrazione di uno schermo touch per una gestione intuitiva.<br><br>
+              <strong>Contributi:</strong>
+              <ul>
+                <li>Progettazione e sviluppo prototipo con Arduino in autonomia, hardware e software</li>
+                <li>Disegno e stampa 3D del case</li>
+                <li>Realizzazione hardware della versione con Raspberry Pi 4</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">2021-2022</div>
+              <h3 class="timeline-title">Simulazione aziendale: OMB Solar</h3>
+              <p class="timeline-desc">
+                <strong>Ruolo:</strong> Capo Progetto<br><br>
+                <strong>Descrizione:</strong> Ideazione e gestione di un progetto simulato per la creazione di un'azienda fittizia, OMB Solar, specializzata nella produzione di ombrelloni solari per spiagge.<br><br>
+                <strong>Contributi:</strong>
+                <ul>
+                  <li>Analisi dei prezzi di mercato</li>
+                  <li>Creazione di presentazioni professionali con render 3D</li>
+                </ul>
+              </p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- PROGETTI -->
+  <section id="projects" class="section">
+    <div class="container projects-section">
+      <div class="section-title">
+        <h2>Progetti Personali Più Rilevanti</h2>
+      </div>
+      <div class="projects-grid">
+        <!-- Progetto 1 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Ricerca di Numeri Primi (C/C++)</h3>
+            <div class="project-tags">
+              <span class="project-tag">C</span>
+              <span class="project-tag">C++</span>
+            </div>
+            <p class="project-desc">
+              Primo progetto di programmazione, ottimizzato in C++.
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+        <!-- Progetto 2 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Gioco di Scopa (Python)</h3>
+            <div class="project-tags">
+              <span class="project-tag">Python</span>
+            </div>
+            <p class="project-desc">
+              Sviluppo in corso di un gioco completo con back-end e front-end in Python.
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+        <!-- Progetto 3 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Shop Online</h3>
+            <div class="project-tags">
+              <span class="project-tag">PHP</span>
+              <span class="project-tag">HTML/CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">SQL</span>
+            </div>
+            <p class="project-desc">
+              E-commerce funzionante con interfaccia utente e gestione server.
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+        <!-- Progetto 4 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Videogioco "Google Dinosaur" (Java)</h3>
+            <div class="project-tags">
+              <span class="project-tag">Java</span>
+            </div>
+            <p class="project-desc">
+              Videogioco ispirato al famoso dinosauro di Chrome (incompleto).
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+        <!-- Progetto 5 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Progetti hardware con Arduino</h3>
+            <div class="project-tags">
+              <span class="project-tag">Arduino</span>
+              <span class="project-tag">Prototipazione</span>
+            </div>
+            <p class="project-desc">
+              Lettori RFID, sistemi di accensione luci con battito e altri progetti.
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+        <!-- Progetto 6 -->
+        <div class="project-card">
+          <div class="project-content">
+            <h3 class="project-title">Reti con Cisco Packet Tracer</h3>
+            <div class="project-tags">
+              <span class="project-tag">Networking</span>
+              <span class="project-tag">Cisco Packet Tracer</span>
+            </div>
+            <p class="project-desc">
+              Progettazione e simulazione di reti complesse (LAN, VLAN, VPN, DMZ, ACL, firewall).
+            </p>
+            <div class="project-links">
+              <a href="https://github.com/MasterPinguin" class="project-link" target="_blank">GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CONTATTI -->
+  <section id="contact" class="section">
+    <div class="container contact-section">
+      <div class="section-title">
+        <h2>Contatti</h2>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div>
+              <h4>Indirizzo</h4>
+              <p>71043 Manfredonia (FG), Italia</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <h4>Email</h4>
+              <p>giovanni.gpr5@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <h4>Telefono</h4>
+              <p>+39 349 150 2016</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form action="https://formspree.io/f/xvojnqkk" method="POST">
+            <input type="text" name="name" placeholder="Nome" required />
+            <input type="email" name="email" placeholder="Email" required />
+            <textarea name="message" rows="5" placeholder="Messaggio" required></textarea>
+            <button type="submit" class="btn-submit">Invia</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Giovanni Pio Rizzi. Tutti i diritti riservati.</p>
+      <div class="social-links">
+        <a href="https://github.com/MasterPinguin" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- JS per animazioni in entrata e uscita -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = { threshold: 0.2 };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            if(entry.target.classList.contains('progress-fill')){
+              const progress = entry.target.dataset.progress || entry.target.style.getPropertyValue('--progress');
+              setTimeout(() => { entry.target.style.width = progress; }, 100);
+            }
+          } else {
+            entry.target.classList.remove('animate');
+            if(entry.target.classList.contains('progress-fill')){
+              entry.target.style.width = '0';
+            }
+          }
+        });
+      }, observerOptions);
+      document.querySelectorAll(
+        '.hero-content, .btn, .section-title, .about, .profile-details, .education-section, .education-box, .skills-section, .skill-category, .timeline, .timeline-item, .projects-section, .project-card, .contact-section, .contact-info, .contact-item, .contact-form, .progress-fill'
+      ).forEach(el => observer.observe(el));
+    });
+  </script>
+  
+</body>
+</html>
