@@ -15,6 +15,9 @@
       --background: #ffffff;    /* Bianco pulito */
       --animation-duration: 0.8s;
       --stagger: 0.2s;
+      --radius: 12px;            /* Raggio di base per i box */
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-strong: rgba(0, 112, 201, 0.3);
     }
     
     /* Reset base */
@@ -38,20 +41,19 @@
       color: inherit;
     }
 
-    .img{
-        max-height: 20px;
-        width: auto;
+    .img {
+      max-height: 20px;
+      width: auto;
     }
-
 
     .left-header {
-        display: flex;
-        align-items: center;
-        gap: 5px; /* spazio tra il testo e l'immagine */
+      display: flex;
+      align-items: center;
+      gap: 5px; /* spazio tra il testo e l'immagine */
     }
 
-    li{
-        margin-left: 30px;
+    li {
+      margin-left: 30px;
     }
     
     .container {
@@ -124,11 +126,32 @@
       font-weight: 500;
       transition: color 0.3s ease, transform 0.3s ease;
       color: var(--light);
+      padding: 8px;
+      border-radius: 6px;
     }
     
     .nav-links a:hover {
-      color: var(--primary);
+      color: var(--light);
+      background-color: var(--primary);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-strong);
+    }
+
+    /* Pulsante “Scarica CV” nella nav */
+    .btn-cv {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 2px solid var(--light);
+      color: var(--light);
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 0.9rem;
+    }
+    .btn-cv:hover {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0,112,201,0.3);
     }
     
     /* HERO */
@@ -187,15 +210,25 @@
       gap: 8px;
       opacity: 0;
       transform: translateY(30px);
-    }
-    
-    .btn-primary {
+      cursor: pointer;
       background-color: var(--primary);
       border: 2px solid var(--primary);
       color: var(--light);
     }
-    
-    .btn-primary:hover {
+    .btn {
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(30px);
+      box-shadow: 0 4px 12px var(--shadow-light);
+    }
+    /* Hover sulle CTA principali */
+    .btn:hover {
       background-color: var(--secondary);
       border-color: var(--secondary);
       transform: translateY(-4px);
@@ -207,7 +240,6 @@
       border: 2px solid var(--light);
       color: var(--light);
     }
-    
     .btn-outline:hover {
       background-color: var(--light);
       color: var(--dark);
@@ -329,6 +361,23 @@
       color: var(--primary);
     }
     
+    /* Pulsante Scarica CV nella sezione Profilo */
+    .download-cv {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: var(--primary);
+      color: var(--light);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .download-cv:hover {
+      background-color: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,112,201,0.3);
+    }
+    
     /* ISTRUZIONE */
     .education-section {
       opacity: 0;
@@ -337,13 +386,15 @@
     .education-box {
       background: rgba(0,112,201,0.05);
       border: 1px solid rgba(0,112,201,0.2);
-      border-radius: 10px;
+      border-radius: var(--radius);
       padding: 20px;
       margin-bottom: 20px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .education-box:hover {
       transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .education-title {
       color: var(--primary);
@@ -364,14 +415,16 @@
     .skill-category {
       background: rgba(0,112,201,0.05);
       border: 1px solid rgba(0,112,201,0.2);
-      border-radius: 10px;
+      border-radius: var(--radius);
       padding: 20px;
-      transition: transform 0.3s ease, opacity 0.5s ease;
+      transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .skill-category:hover {
       transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .skill-category h4 {
       margin-bottom: 10px;
@@ -414,7 +467,6 @@
       transform: translateY(30px);
       padding-bottom: 40px;
     }
-    /* LINEA DELLA TIMELINE */
     .timeline::after {
       content: '';
       position: absolute;
@@ -428,16 +480,18 @@
     .timeline-item {
       position: relative;
       width: 50%;
-      padding: 20px 20px;
-      transition: transform 0.5s ease, opacity 0.5s ease;
+      padding: 20px 30px;
+      margin-bottom: 30px;
+      transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
-      border-radius: 10px;
+      border-radius: var(--radius);
       background: rgba(0,112,201,0.03);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .timeline-item:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 16px rgba(0,112,201,0.3);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .timeline-item:nth-child(odd) {
       left: 0;
@@ -457,7 +511,7 @@
       top: 50%;
       right: 0px;
       border-radius: 50%;
-      box-shadow: 0 0 8px rgba(0,112,201,0.6);
+      box-shadow: 0 0 8px rgba(--shadow-strong);
       transform: translate(50%, -50%);
     }
     .timeline-item:nth-child(even)::after {
@@ -505,14 +559,16 @@
     .project-card {
       background: rgba(0,112,201,0.05);
       border: 1px solid rgba(0,112,201,0.2);
-      border-radius: 10px;
+      border-radius: var(--radius);
       padding: 20px;
-      transition: transform 0.3s ease, opacity 0.5s ease;
+      transition: transform 0.3s ease, opacity 0.5s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .project-card:hover {
       transform: scale(1.02);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .project-title {
       font-size: 1.2rem;
@@ -562,31 +618,38 @@
     .contact-item {
       background: rgba(0,112,201,0.1);
       border: 1px solid rgba(0,112,201,0.2);
-      border-radius: 10px;
+      border-radius: var(--radius);
       padding: 20px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .contact-item:hover {
       transform: scale(1.02);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .contact-item h4 {
       color: var(--primary);
       margin-bottom: 5px;
     }
+    .contact-item p {
+      font-size: 1rem;
+    }
     .contact-form {
       flex: 1;
       background: rgba(0,112,201,0.05);
       border: 1px solid rgba(0,112,201,0.2);
-      border-radius: 10px;
+      border-radius: var(--radius);
       padding: 20px;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       opacity: 0;
       transform: translateY(30px);
+      box-shadow: 0 4px 12px var(--shadow-light);
     }
     .contact-form:hover {
       transform: translateY(-4px);
+      box-shadow: 0 8px 24px var(--shadow-strong);
     }
     .contact-form form {
       display: flex;
@@ -601,6 +664,11 @@
       border: none;
       font-size: 1rem;
     }
+    /* Hover campo input (leggero bordo) */
+    .contact-form input:hover,
+    .contact-form textarea:hover {
+      outline: 2px solid var(--primary);
+    }
     .btn-submit {
       background-color: var(--primary);
       color: var(--light);
@@ -609,7 +677,8 @@
       border-radius: 30px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      align-self: flex-start;
     }
     .btn-submit:hover {
       background-color: var(--secondary);
@@ -744,6 +813,7 @@
         <a href="#experience">Esperienze</a>
         <a href="#projects">Progetti</a>
         <a href="#contact">Contatti</a>
+        <a href="Giovanni_Pio_Rizzi_CV.pdf" download class="btn-cv">Scarica CV</a>
       </div>
     </nav>
   
@@ -763,7 +833,8 @@
           Giovane sviluppatore con una passione per l’innovazione, soluzioni hardware/software e prototipazione avanzata.
         </p>
         <div class="cta-buttons">
-          <a href="#contact" class="btn btn-primary">Contattami</a>
+          <a href="#contact" class="btn">Contattami</a>
+          <a href="Giovanni_Pio_Rizzi_CV.pdf" download class="btn btn-outline">Scarica CV</a>
           <a href="https://github.com/MasterPinguin" class="btn btn-outline" target="_blank">Portfolio</a>
         </div>
       </div>
@@ -801,6 +872,7 @@
               <span>Maschio</span>
             </div>
           </div>
+          <a href="Giovanni_Pio_Rizzi_CV.pdf" download class="download-cv">Scarica il mio CV</a>
         </div>
       </div>
     </div>
@@ -1415,7 +1487,8 @@
           </div>
         </div>
         <div class="contact-form">
-          <form action="https://formspree.io/f/xvojnqkk" method="POST">
+          <!-- Modulo con action mailto: -->
+          <form action="mailto:giovanni.gpr5@gmail.com" method="POST" enctype="text/plain">
             <input type="text" name="name" placeholder="Nome" required />
             <input type="email" name="email" placeholder="Email" required />
             <textarea name="message" rows="5" placeholder="Messaggio" required></textarea>
@@ -1456,6 +1529,7 @@
           }
         });
       }, observerOptions);
+
       document.querySelectorAll(
         '.hero-content, .btn, .section-title, .about, .profile-details, .education-section, .education-box, .skills-section, .skill-category, .timeline, .timeline-item, .projects-section, .project-card, .contact-section, .contact-info, .contact-item, .contact-form, .progress-fill'
       ).forEach(el => observer.observe(el));
