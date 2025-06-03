@@ -232,7 +232,7 @@
       background-color: var(--secondary);
       border-color: var(--secondary);
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,112,201,0.3);
+      box-shadow: 0 0px 20px var(--secondary);
     }
     
     .btn-outline {
@@ -244,7 +244,8 @@
       background-color: var(--light);
       color: var(--dark);
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(242,242,247,0.2);
+      border-color: var(--light);
+      box-shadow: 0 0px 20px rgba(255,255,255,0.7);
     }
     
     /* Sfere animate di sfondo */
@@ -375,7 +376,7 @@
     .download-cv:hover {
       background-color: var(--secondary);
       transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,112,201,0.3);
+      box-shadow: 0 6px 15px rgba(0,112,201,0.9);
     }
     
     /* ISTRUZIONE */
@@ -491,7 +492,7 @@
     }
     .timeline-item:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px var(--shadow-strong);
+      box-shadow: 0 0px 40px var(--shadow-strong);
     }
     .timeline-item:nth-child(odd) {
       left: 0;
@@ -669,13 +670,15 @@
     .contact-form textarea:hover {
       outline: 2px solid var(--primary);
     }
+
     .btn-submit {
       background-color: var(--primary);
       color: var(--light);
-      padding: 12px 24px;
+      padding: 13px 25px;
       border: none;
       border-radius: 30px;
       font-weight: 600;
+      font-size: 17px;
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       align-self: flex-start;
@@ -683,7 +686,7 @@
     .btn-submit:hover {
       background-color: var(--secondary);
       transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,112,201,0.3);
+      box-shadow: 0 8px 20px var(--secondary);
     }
     
     /* FOOTER */
@@ -798,23 +801,6 @@
       }
     }
 
-    /* ==== STILE PER IL PULSANTE MAILTO ==== */
-    .btn-email {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #0070c9;
-      text-decoration: none;
-      border: 2px solid #0070c9;
-      padding: 6px 14px;
-      border-radius: 4px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .btn-email:hover {
-      background-color: #0070c9;
-      color: #ffffff;
-    }
 
     /* ==== STILE DELLA MODAL DI CONFERMA ==== */
     #modal-overlay {
@@ -1594,16 +1580,19 @@
               placeholder="Messaggio"
               required
             ></textarea>
-
-            <button type="submit" class="btn-submit">Invia</button>
+            <div style="display: flex; gap: 20px;">
+              <button type="submit" class="btn-submit">Invia</button>
+              <a
+                href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
+                class="btn btn-outline"
+                style="flex: 1; display: flex; justify-content: center; align-items: center;"
+              >
+                Scrivimi direttamente via email
+              </a>
+            </div>
           </form>
 
           <!-- LINK MAILTO STILIZZATO COME PULSANTE -->
-          <a
-            href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
-            class="btn-email"
-            >Scrivimi direttamente via email</a
-          >
         </div>
 
       </div>
