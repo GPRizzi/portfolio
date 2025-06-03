@@ -1488,12 +1488,45 @@
         </div>
         <div class="contact-form">
           <!-- Modulo con action mailto: -->
-          <form action="mailto:giovanni.gpr5@icloud.com" method="POST" enctype="text/plain">
-            <input type="text" name="name" placeholder="Nome" required />
-            <input type="email" name="email" placeholder="Email" required />
-            <textarea name="message" rows="5" placeholder="Messaggio" required></textarea>
-            <button type="submit" class="btn-submit">Invia</button>
-          </form>
+        <form
+          action="https://formsubmit.co/giovanni.gpr5@icloud.com"
+          method="POST"
+        >
+          <!-- Disabilita CAPTCHA integrato (opzionale) -->
+          <input type="hidden" name="_captcha" value="false" />
+
+          <!-- Redirect a pagina di “grazie” (opzionale) -->
+          <!--
+          <input
+            type="hidden"
+            name="_next"
+            value="https://www.gprizzi.com/thank-you.html"
+          />
+          -->
+
+          <!-- Campi visibili -->
+          <input
+            type="text"
+            name="name"
+            placeholder="Nome"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Messaggio"
+            required
+          ></textarea>
+
+          <button type="submit" class="btn-submit">Invia</button>
+        </form>
+
         </div>
       </div>
     </div>
