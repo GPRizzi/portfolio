@@ -1487,15 +1487,15 @@
           </div>
         </div>
         <div class="contact-form">
-          <!-- Modulo con action mailto: -->
+        <!-- FORM VIA HTTPS (Formsubmit) -->
         <form
           action="https://formsubmit.co/giovanni.gpr5@icloud.com"
           method="POST"
         >
-          <!-- Disabilita CAPTCHA integrato (opzionale) -->
+          <!-- Disabilita CAPTCHA (opzionale) -->
           <input type="hidden" name="_captcha" value="false" />
 
-          <!-- Redirect a pagina di “grazie” (opzionale) -->
+          <!-- Se vuoi redirect a pagina di ringraziamento, decommenta: -->
           <!--
           <input
             type="hidden"
@@ -1504,7 +1504,7 @@
           />
           -->
 
-          <!-- Campi visibili -->
+          <!-- Campi visibili per l'utente -->
           <input
             type="text"
             name="name"
@@ -1526,6 +1526,15 @@
 
           <button type="submit" class="btn-submit">Invia</button>
         </form>
+
+        <!-- Link mailto: per aprire il client di posta -->
+        <p style="margin-top: 12px; font-size: 0.9rem;">
+          Oppure <a
+            href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
+            style="color: #0070c9;"
+            >scrivimi direttamente via email</a
+          >.
+        </p>
 
         </div>
       </div>
