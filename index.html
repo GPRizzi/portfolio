@@ -797,6 +797,73 @@
         width: 100%;
       }
     }
+
+    /* ==== STILE PER IL PULSANTE MAILTO ==== */
+    .btn-email {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: #0070c9;
+      text-decoration: none;
+      border: 2px solid #0070c9;
+      padding: 6px 14px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-email:hover {
+      background-color: #0070c9;
+      color: #ffffff;
+    }
+
+    /* ==== STILE DELLA MODAL DI CONFERMA ==== */
+    #modal-overlay {
+      display: none;          /* nascosta di default */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.6);
+      z-index: 1000;
+    }
+
+    #modal-box {
+      background-color: #ffffff;
+      max-width: 320px;
+      width: 90%;
+      margin: 0 auto;
+      margin-top: 20vh;
+      padding: 24px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #modal-box h3 {
+      margin-top: 0;
+      color: #0070c9;
+    }
+
+    #modal-box p {
+      margin: 12px 0 20px;
+      font-size: 0.95rem;
+      color: #333333;
+    }
+
+    #modal-close-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      background-color: #0070c9;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+
+    #modal-close-btn:hover {
+      background-color: #005ea0;
+    }
   </style>
 </head>
 <body>
@@ -1466,6 +1533,7 @@
         <h2>Contatti</h2>
       </div>
       <div class="contact-container">
+
         <div class="contact-info">
           <div class="contact-item">
             <div>
@@ -1486,57 +1554,73 @@
             </div>
           </div>
         </div>
+
         <div class="contact-form">
-        <!-- FORM VIA HTTPS (Formsubmit) -->
-        <form
-          action="https://formsubmit.co/giovanni.gpr5@icloud.com"
-          method="POST"
-        >
-          <!-- Disabilita CAPTCHA (opzionale) -->
-          <input type="hidden" name="_captcha" value="false" />
+          <!-- FORM VIA HTTPS (Formsubmit) -->
+          <form
+            id="contact-form"
+            action="https://formsubmit.co/giovanni.gpr5@icloud.com"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="showModal(event)"
+          >
+            <!-- Disabilita CAPTCHA (opzionale) -->
+            <input type="hidden" name="_captcha" value="false" />
 
-          <!-- Se vuoi redirect a pagina di ringraziamento, decommenta: -->
-          <!--
-          <input
-            type="hidden"
-            name="_next"
-            value="https://www.gprizzi.com/thank-you.html"
-          />
-          -->
+            <!-- Se vuoi reindirizzamento a pagina di ringraziamento, decommenta:
+            <input
+              type="hidden"
+              name="_next"
+              value="https://www.gprizzi.com/thank-you.html"
+            />
+            -->
 
-          <!-- Campi visibili per l'utente -->
-          <input
-            type="text"
-            name="name"
-            placeholder="Nome"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Messaggio"
-            required
-          ></textarea>
+            <!-- Campi visibili per l'utente -->
+            <input
+              type="text"
+              name="name"
+              placeholder="Nome"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Messaggio"
+              required
+            ></textarea>
 
-          <button type="submit" class="btn-submit">Invia</button>
-        </form>
+            <button type="submit" class="btn-submit">Invia</button>
+          </form>
 
-        <!-- Link mailto: per aprire il client di posta -->
-        <p style="margin-top: 12px; font-size: 0.9rem;">
-          Oppure <a
+          <!-- LINK MAILTO STILIZZATO COME PULSANTE -->
+          <a
             href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
-            style="color: #0070c9;"
-            >scrivimi direttamente via email</a
-          >.
-        </p>
-
+            class="btn-email"
+            >Scrivimi direttamente via email</a
+          >
         </div>
+
+      </div>
+    </div>
+
+    <!-- IFRAME Nascosto per catturare l’invio del form senza redirect -->
+    <iframe
+      name="hidden_iframe"
+      style="display: none;"
+    ></iframe>
+
+    <!-- MODAL DI CONFERMA (NASCOSTA DI DEFAULT) -->
+    <div id="modal-overlay">
+      <div id="modal-box">
+        <h3>Messaggio Inviato!</h3>
+        <p>Grazie per avermi contattato. Ti risponderò al più presto.</p>
+        <button id="modal-close-btn" onclick="closeModal()">Chiudi</button>
       </div>
     </div>
   </section>
@@ -1575,6 +1659,36 @@
       document.querySelectorAll(
         '.hero-content, .btn, .section-title, .about, .profile-details, .education-section, .education-box, .skills-section, .skill-category, .timeline, .timeline-item, .projects-section, .project-card, .contact-section, .contact-info, .contact-item, .contact-form, .progress-fill'
       ).forEach(el => observer.observe(el));
+    });
+
+    // Quando l’utente invia il form, mostriamo la modal e resettiamo i campi
+    function showModal(event) {
+      // Se vuoi, puoi evitare di mostrare immediatamente la modal finché l'iframe non torna con un "seguo successo",
+      // ma Formsubmit non invia un messaggio di ritorno diretto, quindi qui lo mostriamo subito.
+      event.preventDefault();
+
+      // Invia ugualmente i dati al formsubmit in background, puntando all’iframe
+      document.getElementById('contact-form').submit();
+
+      // Mostra overlay + popup
+      document.getElementById('modal-overlay').style.display = 'block';
+
+      // Pulisci i campi del form dopo un breve delay (così l’utente capisce che è partito)
+      setTimeout(function() {
+        document.getElementById('contact-form').reset();
+      }, 300);
+    }
+
+    // Chiude la modal
+    function closeModal() {
+      document.getElementById('modal-overlay').style.display = 'none';
+    }
+
+    // Chiude la modal anche se l’utente clicca fuori (facoltativo)
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
     });
   </script>
   
