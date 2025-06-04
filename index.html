@@ -3,53 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0070c9" />
+  <meta name="theme-color" content="#0070c9">
 
-  <!-- Titolo della pagina (compare come titolo cliccabile su Google) -->
-  <title>Giovanni Pio Rizzi – Full Stack Developer & 3D Artist</title>
-
-  <!-- Meta description decisiva per l’anteprima su Google (50–160 caratteri circa) -->
+  <!-- META SEO ESSENZIALI -->
   <meta
     name="description"
-    content="Portfolio di Giovanni Pio Rizzi: full stack developer, 3D artist e specialista in hardware & prototipazione. Scopri progetti web, applicazioni e arte 3D."
+    content="Giovanni Pio Rizzi | Full Stack Developer, 3D Artist e specialista in Hardware & Prototipazione. Portfolio, progetti e contatti."
   />
-
-  <!-- (Opzionale) Meta robots: esplicita che vuoi indicizzare e seguire i link -->
-  <meta name="robots" content="index, follow" />
-
-  <!-- (Opzionale) Link alla sitemap se vuoi che i bot la trovino direttamente -->
-  <!-- <link rel="sitemap" type="application/xml" href="/sitemap.xml" /> -->
-
-  <!-- Open Graph – per anteprima social (Facebook, LinkedIn, Twitter, ecc.) -->
-  <meta property="og:title" content="Giovanni Pio Rizzi – Full Stack Developer & 3D Artist" />
   <meta
-    property="og:description"
-    content="Portfolio di Giovanni Pio Rizzi: full stack developer, 3D artist e specialista in hardware & prototipazione."
+    name="keywords"
+    content="Giovanni Pio Rizzi, Full Stack Developer, 3D Artist, hardware prototipazione, portfolio, sviluppo web, sviluppatore italiano"
   />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.gprizzi.com/" />
-  <!-- Qui puoi aggiungere un’immagine di anteprima, ad es. un logo o uno screenshot del sito -->
-  <!-- <meta property="og:image" content="https://www.gprizzi.com/og-image.png" /> -->
+  <meta name="author" content="Giovanni Pio Rizzi" />
 
-  <!-- (Facoltativo) Twitter Card -->
+  <!-- Open Graph per anteprime Social -->
+  <meta property="og:title" content="Giovanni Pio Rizzi – Full Stack Developer & 3D Artist" />
+  <meta property="og:description" content="Portfolio di Giovanni Pio Rizzi: sviluppo web, 3D art, prototipazione hardware." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.gprizzi.com" />
+  <meta property="og:image" content="https://www.gprizzi.com/og-image.png" />
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Giovanni Pio Rizzi – Full Stack Developer & 3D Artist" />
-  <meta
-    name="twitter:description"
-    content="Portfolio di Giovanni Pio Rizzi: full stack developer, 3D artist e specialista in hardware & prototipazione."
-  />
-  <title>Giovanni Pio Rizzi - Full Stack Developer</title>
+  <meta name="twitter:description" content="Portfolio di Giovanni Pio Rizzi: sviluppo web, 3D art, prototipazione hardware." />
+  <meta name="twitter:image" content="https://www.gprizzi.com/twitter-image.png" />
+
+  <title>Giovanni Pio Rizzi – Full Stack Developer | 3D Artist | Prototipazione Hardware</title>
+
+  <!-- Markup strutturato -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Giovanni Pio Rizzi",
+    "url": "https://www.gprizzi.com",
+    "sameAs": [
+      "https://github.com/MasterPinguin",
+      "https://www.linkedin.com/in/tuo-linkedin",
+      "https://twitter.com/tuo-twitter"
+    ],
+    "jobTitle": "Full Stack Developer, 3D Artist, Hardware & Prototipazione Specialist",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Indipendente / Freelance"
+    }
+  }
+  </script>
   <style>
     :root {
-      --primary: #0070c9;       
-      --secondary: #005ea2;     
-      --dark: #1c1c1e;          
-      --light: #f2f2f7;         
-      --text: #1c1c1e;          
-      --background: #ffffff;    
+      --primary: #0070c9;       /* Blu Apple-style */
+      --secondary: #005ea2;     /* Blu scuro sobrio */
+      --dark: #1c1c1e;          /* Quasi nero, stile Apple */
+      --light: #f2f2f7;         /* Grigio molto chiaro */
+      --text: #1c1c1e;          /* Testo scuro per contrasto */
+      --background: #ffffff;    /* Bianco pulito */
       --animation-duration: 0.8s;
       --stagger: 0.2s;
-      --radius: 12px;           
+      --radius: 12px;            /* Raggio di base per i box */
       --shadow-light: rgba(0, 0, 0, 0.1);
       --shadow-strong: rgba(0, 112, 201, 0.3);
     }
