@@ -1590,9 +1590,7 @@
 
         <!-- Colonna con form + link mailto + modal di conferma -->
         <div class="contact-form">
-          <!-- FORM VIA JavaScript (fetch su Formsubmit) -->
           <form id="contact-form">
-            <!-- Disabilita CAPTCHA (opzionale) -->
             <input type="hidden" name="_captcha" value="false" />
 
             <!-- Campi visibili per l'utente -->
@@ -1641,6 +1639,7 @@
       </div>
     </div>
   </section>
+
   
   <!-- FOOTER -->
   <footer>
@@ -1688,49 +1687,55 @@
       form.addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        // Disabilita il pulsante e cambia testo
+        // Disabilitiamo il bottone e cambiamo testo
         submitBtn.disabled = true;
         submitBtn.textContent = 'Invio in corso...';
 
-        // Crea FormData
+        // Creiamo un oggetto FormData con i dati del form
         const formData = new FormData(form);
-        // Garantiamo la disabilitazione del CAPTCHA
+        // Inseriamo comunque il campo _captcha
         formData.append('_captcha', 'false');
 
         try {
-          // Invia richiesta POST a Formsubmit con Accept: application/json
-          const response = await fetch('https://formsubmit.co/giovanni.gpr5@icloud.com', {
+          // INVIO tramite l'endpoint AJAX di Formsubmit:
+          const response = await fetch('https://formsubmit.co/ajax/giovanni.gpr5@icloud.com', {
             method: 'POST',
-            body: formData,
             headers: {
+              // Importante: chiediamo una risposta JSON
               'Accept': 'application/json'
-            }
+            },
+            body: formData
           });
 
-          // Leggiamo la risposta JSON
+          // Proviamo a parse-are la risposta JSON
           const data = await response.json();
 
           if (response.ok) {
-            // Se ok: mostriamo il messaggio di successo (data.message raccoglie il testo restituito)
+            // Invio OK (status 200-299)
             modalTitle.textContent = 'Messaggio Inviato!';
-            modalMessage.textContent = data.message || 'Grazie per avermi contattato. Ti risponderò al più presto.';
+            // Formsubmit restituisce un campo "message" tipo "Thanks for your email..."
+            modalMessage.textContent = data.message || 
+              'Grazie per avermi contattato. Ti risponderò al più presto.';
             form.reset();
           } else {
-            // Se non ok: errore di validazione, mostriamo il messaggio restituito
+            // Invio NON OK (status 4xx). data.errors è un array di oggetti {message: "..."} 
             modalTitle.textContent = 'Errore nell’invio';
-            // data.errors contiene array di eventuali errori, data.message è breve
             if (data.errors && Array.isArray(data.errors)) {
+              // Uniamo tutti i messaggi di errore in una stringa
               modalMessage.textContent = data.errors.map(err => err.message).join('; ');
             } else {
-              modalMessage.textContent = data.message || 'Si è verificato un errore indefinito. Riprova più tardi.';
+              // In caso Formsubmit restituisca solo un message generico
+              modalMessage.textContent = data.message || 
+                'Si è verificato un errore. Riprova più tardi.';
             }
           }
         } catch (err) {
-          // Errore di rete (connessione assente, timeout, ecc.)
+          // Qui entriamo se c’è un problema di rete (ad es. utente offline)
           modalTitle.textContent = 'Connessione assente';
-          modalMessage.textContent = 'Impossibile contattare il server. Controlla la tua connessione e riprova.';
+          modalMessage.textContent = 
+            'Non riesco a contattare il server. Controlla la tua connessione e riprova.';
         } finally {
-          // Mostriamo sempre il popup e ri-attiviamo il pulsante
+          // Mostriamo in ogni caso il popup e riattiviamo il bottone
           modalOverlay.style.display = 'block';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Invia';
