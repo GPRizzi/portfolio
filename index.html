@@ -1194,10 +1194,10 @@
                 <span>Raspberry Pi</span>
                 <img class="img" src="https://cdn.worldvectorlogo.com/logos/raspberry-pi.svg" alt="Raspberry Pi logo">
                 </div>
-                <span class="percent">65%</span>
+                <span class="percent">55%</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" data-progress="85%"></div>
+                <div class="progress-fill" data-progress="55%"></div>
             </div>
             </div>
         </div>
@@ -1293,10 +1293,10 @@
                 <span>VS Code</span>
                 <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/512px-Visual_Studio_Code_1.35_icon.svg.png?20210804221519" alt="VS Code logo">
                 </div>
-                <span class="percent">90%</span>
+                <span class="percent">95%</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" data-progress="90%"></div>
+                <div class="progress-fill" data-progress="95%"></div>
             </div>
             </div>          
             <div class="skill-item">
@@ -1317,10 +1317,10 @@
                 <span>Android Studio</span>
                 <img class="img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Android_Studio_Logo_2024.svg/768px-Android_Studio_Logo_2024.svg.png" alt="Android Studio logo">
                 </div>
-                <span class="percent">75%</span>
+                <span class="percent">65%</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" data-progress="75%"></div>
+                <div class="progress-fill" data-progress="65%"></div>
             </div>
             </div>
         </div>  
@@ -1543,56 +1543,56 @@
 
         <div class="contact-form">
           <!-- FORM VIA HTTPS (Formsubmit) -->
-        <form
-          id="contact-form"
-          action="https://formsubmit.co/giovanni.gpr5@icloud.com"
-          method="POST"
-        >
-          <!-- Disabilita CAPTCHA -->
-          <input type="hidden" name="_captcha" value="false" />
+          <form
+            id="contact-form"
+            action="https://formsubmit.co/giovanni.gpr5@icloud.com"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="showModal(event)"
+          >
+            <!-- Disabilita CAPTCHA (opzionale) -->
+            <input type="hidden" name="_captcha" value="false" />
 
-          <!-- Se vuoi redirect automatico, decommenta:
-          <input
-            type="hidden"
-            name="_next"
-            value="https://www.gprizzi.com/thank-you.html"
-          />
-          -->
+            <!-- Se vuoi reindirizzamento a pagina di ringraziamento, decommenta:
+            <input
+              type="hidden"
+              name="_next"
+              value="https://www.gprizzi.com/thank-you.html"
+            />
+            -->
 
-          <!-- ★★ CAMPI DEL FORM ★★ -->
-          <input
-            type="text"
-            name="name"
-            placeholder="Nome"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Messaggio"
-            required
-          ></textarea>
+            <!-- Campi visibili per l'utente -->
+            <input
+              type="text"
+              name="name"
+              placeholder="Nome"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              required
+            />
+            <textarea
+              name="message"
+              rows="5"
+              placeholder="Messaggio"
+              required
+            ></textarea>
+            <div style="display: flex; gap: 20px;">
+              <button type="submit" class="btn-submit">Invia</button>
+              <a
+                href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
+                class="btn btn-outline"
+                style="flex: 1; display: flex; justify-content: center; align-items: center;"
+              >
+                Scrivimi direttamente via email
+              </a>
+            </div>
+          </form>
 
-
-          <div style="display: flex; gap: 20px;">
-            <button type="submit" class="btn-submit">Invia</button>
-            <a
-              href="mailto:giovanni.gpr5@icloud.com?subject=Contatto%20da%20gprizzi.com"
-              class="btn btn-outline"
-              style="flex: 1; display: flex; justify-content: center; align-items: center;"
-            >
-              Scrivimi direttamente via email
-            </a>
-          </div>
-        </form>
-
-        <!-- LINK MAILTO STILIZZATO COME PULSANTE -->
+          <!-- LINK MAILTO STILIZZATO COME PULSANTE -->
         </div>
 
       </div>
@@ -1607,9 +1607,8 @@
     <!-- MODAL DI CONFERMA (NASCOSTA DI DEFAULT) -->
     <div id="modal-overlay">
       <div id="modal-box">
-        <!-- ★★: id="modal-title" e id="modal-message" per cambiare testo via JS -->
-        <h3 id="modal-title">Titolo qui</h3>
-        <p id="modal-message">Messaggio qui</p>
+        <h3>Messaggio Inviato!</h3>
+        <p>Grazie per avermi contattato. Ti risponderò al più presto.</p>
         <button id="modal-close-btn" onclick="closeModal()">Chiudi</button>
       </div>
     </div>
@@ -1651,93 +1650,80 @@
       ).forEach(el => observer.observe(el));
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.getElementById('contact-form');
-      const modalOverlay = document.getElementById('modal-overlay');
-      const modalTitle   = document.getElementById('modal-title');
-      const modalMessage = document.getElementById('modal-message');
+    // Richiamiamo gli elementi della DOM
+    const form = document.getElementById('contact-form');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalBox = document.getElementById('modal-box');
+    const modalTitle = modalBox.querySelector('h3');
+    const modalMessage = modalBox.querySelector('p');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
 
-      form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Blocca l’invio classico
-
-        // Raccogli i dati del form
-        const formData = new FormData(form);
-
-        // Converte FormData in URL-encoded
-        const data = new URLSearchParams();
-        for (const [key, value] of formData) {
-          data.append(key, value);
-        }
-
-        // Pulsante submit (per disabilitarlo temporaneamente)
-        const submitButton = form.querySelector('button[type="submit"]');
-        submitButton.disabled = true;
-        submitButton.textContent = 'Invio in corso...';
-
-        // Esegui la chiamata fetch a Formsubmit, richiedendo JSON
-        fetch(form.action, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: data.toString()
-        })
-        .then(response => {
-          return response.json().then(json => {
-            // response JSON da Formsubmit:
-            //  • Se l’invio è valido: { success: true }
-            //  • Se l’invio manca parametri o email non valida: { success: false, errors: […] }
-            return { status: response.status, json };
-          });
-        })
-        .then(({ status, json }) => {
-          if (json.success) {
-            // SUCCESSO!
-            modalTitle.textContent = 'Messaggio Inviato!';
-            modalMessage.textContent = 'Grazie per avermi contattato. Ti risponderò al più presto.';
-            form.reset();
-          } else {
-            // ERRORE DI VALIDAZIONE o altro errore gestito da Formsubmit
-            modalTitle.textContent = 'Errore nell\'Invio';
-            // json.errors è un array di oggetti {field, error}
-            if (Array.isArray(json.errors) && json.errors.length > 0) {
-              // Prendi il primo errore per mostrare un messaggio
-              const firstErr = json.errors[0];
-              modalMessage.textContent = `Campo "${firstErr.field}": ${firstErr.error}`;
-            } else {
-              // Se non ci sono dettagli, mostra un messaggio generico
-              modalMessage.textContent = 'Si è verificato un errore. Controlla i dati e riprova.';
-            }
-          }
-        })
-        .catch(err => {
-          // ERRORE DI RETE o CORS
-          modalTitle.textContent = 'Errore di Connessione';
-          modalMessage.textContent = 'Non è stato possibile contattare il server. Controlla la tua connessione.';
-        })
-        .finally(() => {
-          // DOPO aver processato tutto, riattiva il pulsante e mostra la modal
-          submitButton.disabled = false;
-          submitButton.textContent = 'Invia';
-          modalOverlay.style.display = 'block';
-        });
-      });
-    });
+    // Funzione per mostrare la modal (successo o errore)
+    function showModal(isSuccess, message) {
+      if (isSuccess) {
+        modalTitle.textContent = 'Messaggio Inviato!';
+        modalMessage.textContent = message || 'Grazie per avermi contattato. Ti risponderò al più presto.';
+        modalOverlay.style.display = 'block';
+      } else {
+        modalTitle.textContent = 'Errore nell’invio';
+        modalMessage.textContent = message || 'Si è verificato un errore. Riprova più tardi.';
+        modalOverlay.style.display = 'block';
+      }
+    }
 
     // Chiude la modal
     function closeModal() {
-      document.getElementById('modal-overlay').style.display = 'none';
+      modalOverlay.style.display = 'none';
     }
 
-    // Chiude la modal se si clicca fuori dal box
-    document.getElementById('modal-overlay').addEventListener('click', function(e) {
-      if (e.target === this) {
+    // Leggiamo il click sull’overlay per chiudere la modal
+    modalOverlay.addEventListener('click', function(e) {
+      if (e.target === modalOverlay) {
         closeModal();
       }
     });
+
+    // Gestione del submit con fetch AJAX
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault(); // Evita il comportamento predefinito del form
+
+      const formData = new FormData(form);
+
+      try {
+        // Inviamo in AJAX a Formsubmit
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData
+        });
+
+        // Proviamo a leggere il JSON di risposta
+        const result = await response.json();
+
+        // Se Formsubmit risponde con success: true, o lo status HTTP è OK
+        if (response.ok && result.success) {
+          // Mostra popup di successo
+          showModal(true, result.message);
+
+          // Pulisci i campi del form dopo un breve delay
+          setTimeout(() => {
+            form.reset();
+          }, 300);
+        } else {
+          // Se response non è ok o result.success non esiste
+          // Recupera messaggio di errore, se presente
+          const errorMsg = result?.message || 'Si è verificato un errore nel server.';
+          showModal(false, errorMsg);
+        }
+      } catch (error) {
+        // Se fetch fallisce (problema di rete, CORS, ecc.)
+        showModal(false, 'Impossibile inviare il messaggio. Controlla la connessione e riprova.');
+        console.error('Fetch error:', error);
+      }
+    });
+
+    // Collegamento al pulsante “Chiudi” dentro la modal
+    modalCloseBtn.addEventListener('click', closeModal);
   </script>
   
 </body>
-
 </html>
