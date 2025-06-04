@@ -1650,79 +1650,35 @@
       ).forEach(el => observer.observe(el));
     });
 
-    // Richiamiamo gli elementi della DOM
-    const form = document.getElementById('contact-form');
-    const modalOverlay = document.getElementById('modal-overlay');
-    const modalBox = document.getElementById('modal-box');
-    const modalTitle = modalBox.querySelector('h3');
-    const modalMessage = modalBox.querySelector('p');
-    const modalCloseBtn = document.getElementById('modal-close-btn');
+    // Quando l’utente invia il form, mostriamo la modal e resettiamo i campi
+    function showModal(event) {
+      // Se vuoi, puoi evitare di mostrare immediatamente la modal finché l'iframe non torna con un "seguo successo",
+      // ma Formsubmit non invia un messaggio di ritorno diretto, quindi qui lo mostriamo subito.
+      event.preventDefault();
 
-    // Funzione per mostrare la modal (successo o errore)
-    function showModal(isSuccess, message) {
-      if (isSuccess) {
-        modalTitle.textContent = 'Messaggio Inviato!';
-        modalMessage.textContent = message || 'Grazie per avermi contattato. Ti risponderò al più presto.';
-        modalOverlay.style.display = 'block';
-      } else {
-        modalTitle.textContent = 'Errore nell’invio';
-        modalMessage.textContent = message || 'Si è verificato un errore. Riprova più tardi.';
-        modalOverlay.style.display = 'block';
-      }
+      // Invia ugualmente i dati al formsubmit in background, puntando all’iframe
+      document.getElementById('contact-form').submit();
+
+      // Mostra overlay + popup
+      document.getElementById('modal-overlay').style.display = 'block';
+
+      // Pulisci i campi del form dopo un breve delay (così l’utente capisce che è partito)
+      setTimeout(function() {
+        document.getElementById('contact-form').reset();
+      }, 300);
     }
 
     // Chiude la modal
     function closeModal() {
-      modalOverlay.style.display = 'none';
+      document.getElementById('modal-overlay').style.display = 'none';
     }
 
-    // Leggiamo il click sull’overlay per chiudere la modal
-    modalOverlay.addEventListener('click', function(e) {
-      if (e.target === modalOverlay) {
+    // Chiude la modal anche se l’utente clicca fuori (facoltativo)
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+      if (e.target === this) {
         closeModal();
       }
     });
-
-    // Gestione del submit con fetch AJAX
-    form.addEventListener('submit', async function(event) {
-      event.preventDefault(); // Evita il comportamento predefinito del form
-
-      const formData = new FormData(form);
-
-      try {
-        // Inviamo in AJAX a Formsubmit
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData
-        });
-
-        // Proviamo a leggere il JSON di risposta
-        const result = await response.json();
-
-        // Se Formsubmit risponde con success: true, o lo status HTTP è OK
-        if (response.ok && result.success) {
-          // Mostra popup di successo
-          showModal(true, result.message);
-
-          // Pulisci i campi del form dopo un breve delay
-          setTimeout(() => {
-            form.reset();
-          }, 300);
-        } else {
-          // Se response non è ok o result.success non esiste
-          // Recupera messaggio di errore, se presente
-          const errorMsg = result?.message || 'Si è verificato un errore nel server.';
-          showModal(false, errorMsg);
-        }
-      } catch (error) {
-        // Se fetch fallisce (problema di rete, CORS, ecc.)
-        showModal(false, 'Impossibile inviare il messaggio. Controlla la connessione e riprova.');
-        console.error('Fetch error:', error);
-      }
-    });
-
-    // Collegamento al pulsante “Chiudi” dentro la modal
-    modalCloseBtn.addEventListener('click', closeModal);
   </script>
   
 </body>
