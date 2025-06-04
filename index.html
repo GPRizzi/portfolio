@@ -1648,7 +1648,6 @@
       ).forEach(el => observer.observe(el));
     });
 
-    // Richiamiamo gli elementi della DOM
     const form = document.getElementById('contact-form');
     const modalOverlay = document.getElementById('modal-overlay');
     const modalBox = document.getElementById('modal-box');
@@ -1663,7 +1662,7 @@
         modalMessage.textContent = message || 'Grazie per avermi contattato. Ti risponderò al più presto.';
         modalOverlay.style.display = 'block';
       } else {
-        modalTitle.textContent = 'Errore nell’invio';
+        modalTitle.textContent = 'Errore';
         modalMessage.textContent = message || 'Si è verificato un errore. Riprova più tardi.';
         modalOverlay.style.display = 'block';
       }
@@ -1674,7 +1673,7 @@
       modalOverlay.style.display = 'none';
     }
 
-    // Leggiamo il click sull’overlay per chiudere la modal
+    // Chiude la modal anche cliccando fuori dal box
     modalOverlay.addEventListener('click', function(e) {
       if (e.target === modalOverlay) {
         closeModal();
@@ -1683,37 +1682,49 @@
 
     // Gestione del submit con fetch AJAX
     form.addEventListener('submit', async function(event) {
-      event.preventDefault(); // Evita il comportamento predefinito del form
+      event.preventDefault(); // Blocca il comportamento di default del form
+
+      // Prima di inviare, facciamo un’ulteriore validazione sul campo email:
+      const emailValue = form.querySelector('input[name="email"]').value;
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailValue)) {
+        // Se l’email non è nemmeno nel formato corretto, mostriamo subito l’errore
+        showModal(false, 'Inserisci un indirizzo email valido.');
+        return;
+      }
 
       const formData = new FormData(form);
 
       try {
-        // Inviamo in AJAX a Formsubmit
+        // Inviamo in AJAX a Formsubmit tramite l’endpoint AJAX
         const response = await fetch(form.action, {
           method: 'POST',
           body: formData
         });
 
+        // Se la risposta HTTP non è 2xx, consideriamo un errore di connessione/server
+        if (!response.ok) {
+          showModal(false, 'Errore di connessione. Controlla la rete e riprova.');
+          return;
+        }
+
         // Proviamo a leggere il JSON di risposta
         const result = await response.json();
 
-        // Se Formsubmit risponde con success: true, o lo status HTTP è OK
-        if (response.ok && result.success) {
-          // Mostra popup di successo
-          showModal(true, result.message);
-
-          // Pulisci i campi del form dopo un breve delay
-          setTimeout(() => {
-            form.reset();
-          }, 300);
-        } else {
-          // Se response non è ok o result.success non esiste
-          // Recupera messaggio di errore, se presente
-          const errorMsg = result?.message || 'Si è verificato un errore nel server.';
-          showModal(false, errorMsg);
+        // Caso 1: Formsubmit risponde con success: true
+        if (result.success === true) {
+          showModal(true, 'Il tuo messaggio è stato inviato con successo!');
+          setTimeout(() => form.reset(), 300);
+        }
+        // Caso 2: Formsubmit risponde con success: false → email inesistente o altro errore lato server
+        else {
+          // Se Formsubmit ci restituisce un messaggio specifico, lo mostriamo;
+          // altrimenti indichiamo “email inesistente” in modo generico
+          const serverMsg = result.message || 'Indirizzo email inesistente o non valido.';
+          showModal(false, serverMsg);
         }
       } catch (error) {
-        // Se fetch fallisce (problema di rete, CORS, ecc.)
+        // Caso 3: fetch fallisce (es. offline, CORS, timeout)
         showModal(false, 'Impossibile inviare il messaggio. Controlla la connessione e riprova.');
         console.error('Fetch error:', error);
       }
