@@ -776,7 +776,7 @@
             transition: transform var(--transition-speed-medium) ease;
             overflow: visible;
         }
-        
+
         .glass-video-inner {
             position: relative;
             border-radius: 22px;
@@ -784,27 +784,27 @@
             background: var(--glass-bg);
             z-index: 1;
         }
-        
+
         .glass-video-inner video {
             width: 100%;
             display: block;
             pointer-events: auto;
         }
-        
+
         .glass-video-container::before {
             content: '';
             position: absolute;
             inset: 0;
             border-radius: 25px;
             border: 3px solid transparent;
-        
+
             background: conic-gradient(
                 from var(--angle),
                 var(--brand-blue),
                 var(--brand-teal),
                 var(--brand-blue)
             ) border-box;
-        
+
             -webkit-mask:
                 linear-gradient(#fff 0 0) content-box,
                 linear-gradient(#fff 0 0);
@@ -813,13 +813,13 @@
                 linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
-        
+
             opacity: 0;
             animation: spin 4s linear infinite;
             transition: opacity var(--transition-speed-fast) ease;
             z-index: 2;
         }
-        
+
         .glass-video-container::after {
             content: '';
             position: absolute;
@@ -835,20 +835,20 @@
             transition: opacity var(--transition-speed-medium) ease;
             animation: spin 12s linear infinite paused;
         }
-        
+
         .glass-video-container:hover {
             transform: scale(1.03);
         }
-        
+
         .glass-video-container:hover::before {
             opacity: 1;
         }
-        
+
         .glass-video-container:hover::after {
             opacity: 0.35;
             animation-play-state: running;
         }
-        
+
         .dark-mode .glass-video-container:hover::after {
             opacity: 0.25;
         }
@@ -2936,7 +2936,7 @@
                         }
                     }
                 });
-            }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }); // <-- rootMargin aumenta l'anticipo all'uscita
+            }, { threshold: 0.1, rootMargin: '200px 0px 0px 0px' });
             document.querySelectorAll('[data-reveal], .progress-fill').forEach(el => revealObserver.observe(el));
 
             // --- LOGICA GLOBO 3D ---
@@ -3155,7 +3155,7 @@
                 });
             }, {
                 threshold: 0.5,
-                rootMargin: '0px 0px -150px 0px' // <-- rootMargin più alto per evitare sfarfallio
+                rootMargin: '200px 0px 0px 0px'
             });
 
             observer.observe(container);
