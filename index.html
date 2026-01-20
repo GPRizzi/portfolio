@@ -7,42 +7,42 @@
     <meta name="theme-color" content="#0077ff">
     <link rel="canonical" href="https://gprizzi.com/" />
 
-    <title>Giovanni Pio Rizzi (GPRizzi) – Full Stack Developer & 3D Artist</title>
+    <title>Giovanni Pio Rizzi (Giovanni Rizzi) – GPRizzi – Full Stack Developer & 3D Artist</title>
 
     <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/GPRizzi/portfolio/main/logo1.png">
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/GPRizzi/portfolio/main/logo1.png">
 
-
     <meta name="description"
-        content="Scopri il portfolio di Giovanni Pio Rizzi (GPRizzi), Full Stack Developer e 3D Artist specializzato in sviluppo web, prototipazione hardware e soluzioni AI-Tech." />
-    
+        content="Portfolio di Giovanni Pio Rizzi, noto anche come Giovanni Rizzi o GPRizzi. Full Stack Developer e 3D Artist specializzato in sviluppo web, prototipazione hardware e soluzioni AI-Tech." />
+
     <meta name="keywords"
-        content="Giovanni Pio Rizzi, Giovanni Rizzi, GPRizzi, gprizzi, portfolio Giovanni Rizzi, Full Stack Developer, 3D Artist, hardware prototipazione, Manfredonia, sviluppatore italiano" />
-    
+        content="Giovanni Pio Rizzi, Giovanni Rizzi, GPRizzi, Portfolio Giovanni Rizzi, Full Stack Developer, 3D Artist, prototipazione hardware, sviluppatore italiano, Manfredonia" />
+
     <meta name="author" content="Giovanni Pio Rizzi" />
 
-
-    <meta property="og:title" content="Giovanni Pio Rizzi (GPRizzi) – Portfolio" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Giovanni Pio Rizzi (Giovanni Rizzi) – Portfolio" />
     <meta property="og:site_name" content="Giovanni Pio Rizzi (GPRizzi) – Full Stack Developer & 3D Artist" />
     <meta property="og:description"
-        content="Scopri i progetti di sviluppo web, 3D art e prototipazione hardware di Giovanni Pio Rizzi (GPRizzi)." />
+        content="Scopri i progetti di sviluppo web, 3D art e prototipazione hardware di Giovanni Pio Rizzi, noto anche come Giovanni Rizzi o GPRizzi." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://gprizzi.com" />
     <meta property="og:image" content="https://gprizzi.com/og-image.png" />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Giovanni Pio Rizzi (GPRizzi) – Portfolio" />
+    <meta name="twitter:title" content="Giovanni Pio Rizzi (Giovanni Rizzi) – Portfolio" />
     <meta name="twitter:description"
-        content="Scopri i progetti di sviluppo web, 3D art e prototipazione hardware di Giovanni Pio Rizzi (GPRizzi)." />
+        content="Scopri i progetti di sviluppo web, 3D art e prototipazione hardware di Giovanni Pio Rizzi, noto anche come Giovanni Rizzi o GPRizzi." />
     <meta name="twitter:image" content="https://gprizzi.com/twitter-image.png" />
 
-
+    <!-- JSON-LD Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Giovanni Pio Rizzi",
-      "alternateName": "GPRizzi",
+      "alternateName": ["Giovanni Rizzi", "GPRizzi"],
       "url": "https://www.gprizzi.com",
       "sameAs": [
         "https://github.com/GPRizzi",
@@ -765,103 +765,93 @@
             to { --angle: 360deg; }
         }
 
-
-
-.glass-video-container {
-    margin-top: 1.5rem;
-    position: relative;
-    border-radius: 25px;
-    padding: 3px; /* spazio per il bordo gradient */
-    background: var(--glass-bg2);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    backdrop-filter: blur(20px) saturate(140%);
-    transition: transform var(--transition-speed-medium) ease;
-    overflow: visible;
-}
-
-/* wrapper interno per il video */
-.glass-video-inner {
-    position: relative;
-    border-radius: 22px;
-    overflow: hidden;
-    background: var(--glass-bg);
-    z-index: 1;
-}
-
-/* video */
-.glass-video-inner video {
-    width: 100%;
-    display: block;
-    pointer-events: auto; /* serve per click pause */
-}
-
-/* bordo gradient animato */
-.glass-video-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 25px;
-    border: 3px solid transparent;
-
-    background: conic-gradient(
-        from var(--angle),
-        var(--brand-blue),
-        var(--brand-teal),
-        var(--brand-blue)
-    ) border-box;
-
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-
-    opacity: 0;
-    animation: spin 4s linear infinite;
-    transition: opacity var(--transition-speed-fast) ease;
-    z-index: 2;
-}
-
-/* glow */
-.glass-video-container::after {
-    content: '';
-    position: absolute;
-    inset: -25px;
-    background: linear-gradient(
-        var(--angle),
-        var(--brand-blue),
-        var(--brand-teal)
-    );
-    filter: blur(45px);
-    opacity: 0;
-    z-index: 0;
-    transition: opacity var(--transition-speed-medium) ease;
-    animation: spin 12s linear infinite paused;
-}
-
-/* hover */
-.glass-video-container:hover {
-    transform: scale(1.03);
-}
-
-.glass-video-container:hover::before {
-    opacity: 1;
-}
-
-.glass-video-container:hover::after {
-    opacity: 0.35;
-    animation-play-state: running;
-}
-
-.dark-mode .glass-video-container:hover::after {
-    opacity: 0.25;
-}
-
-
-
+        .glass-video-container {
+            margin-top: 1.5rem;
+            position: relative;
+            border-radius: 25px;
+            padding: 3px;
+            background: var(--glass-bg2);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            backdrop-filter: blur(20px) saturate(140%);
+            transition: transform var(--transition-speed-medium) ease;
+            overflow: visible;
+        }
+        
+        .glass-video-inner {
+            position: relative;
+            border-radius: 22px;
+            overflow: hidden;
+            background: var(--glass-bg);
+            z-index: 1;
+        }
+        
+        .glass-video-inner video {
+            width: 100%;
+            display: block;
+            pointer-events: auto;
+        }
+        
+        .glass-video-container::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 25px;
+            border: 3px solid transparent;
+        
+            background: conic-gradient(
+                from var(--angle),
+                var(--brand-blue),
+                var(--brand-teal),
+                var(--brand-blue)
+            ) border-box;
+        
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        
+            opacity: 0;
+            animation: spin 4s linear infinite;
+            transition: opacity var(--transition-speed-fast) ease;
+            z-index: 2;
+        }
+        
+        .glass-video-container::after {
+            content: '';
+            position: absolute;
+            inset: -25px;
+            background: linear-gradient(
+                var(--angle),
+                var(--brand-blue),
+                var(--brand-teal)
+            );
+            filter: blur(45px);
+            opacity: 0;
+            z-index: 0;
+            transition: opacity var(--transition-speed-medium) ease;
+            animation: spin 12s linear infinite paused;
+        }
+        
+        .glass-video-container:hover {
+            transform: scale(1.03);
+        }
+        
+        .glass-video-container:hover::before {
+            opacity: 1;
+        }
+        
+        .glass-video-container:hover::after {
+            opacity: 0.35;
+            animation-play-state: running;
+        }
+        
+        .dark-mode .glass-video-container:hover::after {
+            opacity: 0.25;
+        }
 
         .animated-border-container {
             position: relative;
